@@ -1,0 +1,14 @@
+apply plugin: 'java-gradle-plugin'
+
+repositories {
+    mavenLocal()
+    google()
+    jcenter()
+}
+
+dependencies {
+    implementation 'com.android.tools.build:gradle:3.3.0'
+    implementation 'com.android.tools.build:gradle-api:3.3.0'
+    implementation 'com.littersun.butcherknife:annotations:1.0.0'
+}
+

@@ -1,0 +1,3 @@
+include ':butcherknife-gradle-plugin'
+include ':butcherknife-annotations'
+include ':example'
