@@ -32,7 +32,7 @@ import com.littersun.butcherknife.plugin.inject.visitor.ContextClassVisitor;
 import com.littersun.butcherknife.plugin.inject.visitor.DesugaredClassVisitor;
 import com.littersun.butcherknife.plugin.inject.visitor.DesugaringClassVisitor;
 import com.littersun.butcherknife.plugin.inject.visitor.InjectCallClassVisitor;
-import com.littersun.butcherknife.plugin.inject.visitor.InjectExecuteClassVisitor;
+import com.littersun.butcherknife.plugin.inject.visitor.InjectExecuteSuperClassVisitor;
 
 import org.apache.commons.io.IOUtils;
 import org.gradle.api.Project;
@@ -240,9 +240,9 @@ public class ButcherKnifeTransform extends Transform {
             }
             DesugaringClassVisitor desugaringClassVisitor = new DesugaringClassVisitor(
                     new InjectCallClassVisitor(
-                            new InjectExecuteClassVisitor(classWriter, context, mAnnotationScanner.getExecutePointcutClasses()),
+                            new InjectExecuteSuperClassVisitor(classWriter, context, mAnnotationScanner.getSuperExecutePointcutClasses()),
                             context, mAnnotationScanner.getCallPointcutClasses()),
-                    context, mAnnotationScanner.getExecutePointcutClasses());
+                    context, mAnnotationScanner.getSuperExecutePointcutClasses());
             classVisitor = desugaringClassVisitor;
             classReader.accept(classVisitor, ClassReader.SKIP_FRAMES | ClassReader.EXPAND_FRAMES);
             if (!desugaringClassVisitor.getPointcutMethods().isEmpty()) {

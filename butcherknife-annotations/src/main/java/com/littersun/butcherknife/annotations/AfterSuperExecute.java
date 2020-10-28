@@ -24,8 +24,8 @@ import java.lang.annotation.Target;
 
 @Retention(RetentionPolicy.RUNTIME)
 @Target(ElementType.METHOD)
-@Repeatable(BeforeExecutes.class)
-public @interface BeforeExecute {
+@Repeatable(AfterSuperExecutes.class)
+public @interface AfterSuperExecute {
     Class<?> clazz();
 
     String method();

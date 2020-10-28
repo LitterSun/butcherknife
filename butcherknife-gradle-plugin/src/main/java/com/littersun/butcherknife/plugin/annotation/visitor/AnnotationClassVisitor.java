@@ -18,13 +18,13 @@ package com.littersun.butcherknife.plugin.annotation.visitor;
 
 import com.littersun.butcherknife.annotations.AfterCall;
 import com.littersun.butcherknife.annotations.AfterCalls;
-import com.littersun.butcherknife.annotations.AfterExecute;
-import com.littersun.butcherknife.annotations.AfterExecutes;
+import com.littersun.butcherknife.annotations.AfterSuperExecute;
+import com.littersun.butcherknife.annotations.AfterSuperExecutes;
 import com.littersun.butcherknife.annotations.Aspect;
 import com.littersun.butcherknife.annotations.BeforeCall;
 import com.littersun.butcherknife.annotations.BeforeCalls;
-import com.littersun.butcherknife.annotations.BeforeExecute;
-import com.littersun.butcherknife.annotations.BeforeExecutes;
+import com.littersun.butcherknife.annotations.BeforeSuperExecute;
+import com.littersun.butcherknife.annotations.BeforeSuperExecutes;
 import com.littersun.butcherknife.plugin.Context;
 import com.littersun.butcherknife.plugin.annotation.AnnotationScanner;
 
@@ -92,14 +92,14 @@ public class AnnotationClassVisitor extends ClassVisitor {
                 mAnnotationVisitor = new SingleAnnotationVisitor(mContext, BeforeCall.class);
             } else if (desc.equals(Type.getType(BeforeCalls.class).getDescriptor())) {
                 mAnnotationVisitor = new RepeatableAnnotationVisitor(mContext, BeforeCall.class);
-            } else if (desc.equals(Type.getType(AfterExecute.class).getDescriptor())) {
-                mAnnotationVisitor = new SingleAnnotationVisitor(mContext, AfterExecute.class);
-            } else if (desc.equals(Type.getType(AfterExecutes.class).getDescriptor())) {
-                mAnnotationVisitor = new RepeatableAnnotationVisitor(mContext, AfterExecute.class);
-            } else if (desc.equals(Type.getType(BeforeExecute.class).getDescriptor())) {
-                mAnnotationVisitor = new SingleAnnotationVisitor(mContext, BeforeExecute.class);
-            } else if (desc.equals(Type.getType(BeforeExecutes.class).getDescriptor())) {
-                mAnnotationVisitor = new RepeatableAnnotationVisitor(mContext, BeforeExecute.class);
+            } else if (desc.equals(Type.getType(AfterSuperExecute.class).getDescriptor())) {
+                mAnnotationVisitor = new SingleAnnotationVisitor(mContext, AfterSuperExecute.class);
+            } else if (desc.equals(Type.getType(AfterSuperExecutes.class).getDescriptor())) {
+                mAnnotationVisitor = new RepeatableAnnotationVisitor(mContext, AfterSuperExecute.class);
+            } else if (desc.equals(Type.getType(BeforeSuperExecute.class).getDescriptor())) {
+                mAnnotationVisitor = new SingleAnnotationVisitor(mContext, BeforeSuperExecute.class);
+            } else if (desc.equals(Type.getType(BeforeSuperExecutes.class).getDescriptor())) {
+                mAnnotationVisitor = new RepeatableAnnotationVisitor(mContext, BeforeSuperExecute.class);
             }
             if (mAnnotationVisitor != null) {
                 return mAnnotationVisitor;
@@ -109,7 +109,7 @@ public class AnnotationClassVisitor extends ClassVisitor {
 
         private boolean isAfterAnnotation(Class<?> annotation) {
             return annotation == AfterCall.class
-                    || annotation == AfterExecute.class;
+                    || annotation == AfterSuperExecute.class;
         }
 
         @Override
@@ -127,9 +127,9 @@ public class AnnotationClassVisitor extends ClassVisitor {
                             mAnnotationScanner.putCallInjectMethod(Type.getType(pointcutAnnotation.clazz).getInternalName(), pointcutAnnotation.method,
                                     pointcutMethodDesc, mContext.getClassName(), mInjectMethodName, mInjectMethodDesc,
                                     isAfterAnnotation(pointcutAnnotation.annotation));
-                        } else if (pointcutAnnotation.annotation == AfterExecute.class
-                                || pointcutAnnotation.annotation == BeforeExecute.class) {
-                            mAnnotationScanner.putExecuteInjectMethod(Type.getType(pointcutAnnotation.clazz).getInternalName(), pointcutAnnotation.method,
+                        } else if (pointcutAnnotation.annotation == AfterSuperExecute.class
+                                || pointcutAnnotation.annotation == BeforeSuperExecute.class) {
+                            mAnnotationScanner.putSuperExecuteInjectMethod(Type.getType(pointcutAnnotation.clazz).getInternalName(), pointcutAnnotation.method,
                                     pointcutMethodDesc, mContext.getClassName(), mInjectMethodName, mInjectMethodDesc,
                                     isAfterAnnotation(pointcutAnnotation.annotation));
                         }

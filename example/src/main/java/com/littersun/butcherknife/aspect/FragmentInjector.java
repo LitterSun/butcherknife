@@ -23,10 +23,10 @@ import android.app.ListFragment;
 import android.os.Bundle;
 import android.util.Log;
 
-import com.littersun.butcherknife.annotations.AfterExecute;
+import com.littersun.butcherknife.annotations.AfterSuperExecute;
 import com.littersun.butcherknife.annotations.Aspect;
 import com.littersun.butcherknife.annotations.BeforeCall;
-import com.littersun.butcherknife.annotations.BeforeExecute;
+import com.littersun.butcherknife.annotations.BeforeSuperExecute;
 
 @Aspect
 public class FragmentInjector {
@@ -40,14 +40,14 @@ public class FragmentInjector {
         Log.e(TAG, "beforeCallFragmentReplace: transaction = " + transaction + ", containerViewId = " + containerViewId + " ,fragment = " + fragment);
     }
 
-    @BeforeExecute(clazz = Fragment.class, method = "onCreate")
+    @BeforeSuperExecute(clazz = Fragment.class, method = "onCreate")
     public static void beforeFragmentCreate(Fragment fragment, Bundle savedInstanceState) {
         Log.e(TAG, "beforeFragmentCreate: fragment = " + fragment + ", savedInstanceState = " + savedInstanceState);
     }
 
-    @AfterExecute(clazz = Fragment.class, method = "onResume")
-    @AfterExecute(clazz = DialogFragment.class, method = "onResume")
-    @AfterExecute(clazz = ListFragment.class, method = "onResume")
+    @AfterSuperExecute(clazz = Fragment.class, method = "onResume")
+    @AfterSuperExecute(clazz = DialogFragment.class, method = "onResume")
+    @AfterSuperExecute(clazz = ListFragment.class, method = "onResume")
     public static void afterFragmentResume(Fragment fragment) {
         Log.e(TAG, "afterFragmentResume: fragment = " + fragment);
     }

@@ -38,7 +38,7 @@ import java.util.Set;
 
 import static org.objectweb.asm.Opcodes.ACC_PUBLIC;
 
-public class InjectExecuteClassVisitor extends ClassVisitor {
+public class InjectExecuteSuperClassVisitor extends ClassVisitor {
     private final Context mContext;
     private final Log mLog;
     private final Map<String, PointcutClass> mPointcutClassMap;
@@ -46,7 +46,7 @@ public class InjectExecuteClassVisitor extends ClassVisitor {
     private final Set<PointcutMethod> mOverrideMethods = new HashSet<>();
     private String mCurrentClass;
 
-    public InjectExecuteClassVisitor(ClassVisitor classVisitor, Context context, Map<String, PointcutClass> pointcutClassMap) {
+    public InjectExecuteSuperClassVisitor(ClassVisitor classVisitor, Context context, Map<String, PointcutClass> pointcutClassMap) {
         super(context.getASMVersion(), classVisitor);
         mContext = context;
         mLog = context.getLog();
@@ -57,12 +57,7 @@ public class InjectExecuteClassVisitor extends ClassVisitor {
     public void visit(int version, int access, String name, String signature, String superName, String[] interfaces) {
         super.visit(version, access, name, signature, superName, interfaces);
         mCurrentClass = name;
-        PointcutClass pointcutClass = mPointcutClassMap.get(name);
-        if (pointcutClass != null) {
-            mPointcutClasses.add(pointcutClass);
-        }
-
-        pointcutClass = mPointcutClassMap.get(superName);
+        PointcutClass pointcutClass = mPointcutClassMap.get(superName);
         if (pointcutClass != null) {
             mPointcutClasses.add(pointcutClass);
         }

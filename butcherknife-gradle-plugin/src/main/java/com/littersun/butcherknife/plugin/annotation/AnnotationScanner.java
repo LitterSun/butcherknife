@@ -119,10 +119,10 @@ public class AnnotationScanner {
         putInjectMethod(mCallPointcutClasses, pointcutClassName, pointcutMethodName, pointcutMethodDesc, injectClassName, injectMethodName, injectMethodDesc, isAfter);
     }
 
-    public void putExecuteInjectMethod(String pointcutClassName, String pointcutMethodName,
-                                       String pointcutMethodDesc, String injectClassName, String injectMethodName,
-                                       String injectMethodDesc, boolean isAfter) {
-        mLog.info("putExecuteInjectMethod: pointcutClassName = " + pointcutClassName
+    public void putSuperExecuteInjectMethod(String pointcutClassName, String pointcutMethodName,
+                                            String pointcutMethodDesc, String injectClassName, String injectMethodName,
+                                            String injectMethodDesc, boolean isAfter) {
+        mLog.info("putSuperExecuteInjectMethod: pointcutClassName = " + pointcutClassName
                 + ", pointcutMethodName = " + pointcutMethodName
                 + ", pointcutMethodDesc = " + pointcutMethodDesc
                 + ", injectClassName = " + injectClassName
@@ -153,7 +153,7 @@ public class AnnotationScanner {
         return Collections.unmodifiableMap(mCallPointcutClasses);
     }
 
-    public Map<String, PointcutClass> getExecutePointcutClasses() {
+    public Map<String, PointcutClass> getSuperExecutePointcutClasses() {
         return Collections.unmodifiableMap(mExecutePointcutClasses);
     }
 

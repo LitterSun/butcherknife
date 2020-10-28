@@ -170,7 +170,7 @@ public class DesugaringClassVisitor extends ClassVisitor {
 
             Handle handle = (Handle) bsmArgs[1];
             if (lambdaMethodName.equals(handle.getName())) {
-                // 校验实现方法是不是实现了对应接口的实现方法， 如果是则过滤，交给 InjectExecuteClassVisitor 进行处理
+                // 校验实现方法是不是实现了对应接口的实现方法， 如果是则过滤，交给 InjectExecuteSuperClassVisitor 进行处理
                 if (mContext.isAssignable(handle.getOwner(), interfaceClazzName)) {
                     mLog.debug(String.format("DesugaringClassVisitor(%s): skipped on method %s", mContext.getClassName(), mName));
                     super.visitInvokeDynamicInsn(lambdaMethodName, desc, bsm, bsmArgs);

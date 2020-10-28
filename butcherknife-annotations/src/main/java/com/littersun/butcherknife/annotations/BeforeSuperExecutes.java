@@ -23,6 +23,6 @@ import java.lang.annotation.Target;
 
 @Retention(RetentionPolicy.RUNTIME)
 @Target(ElementType.METHOD)
-public @interface BeforeExecutes {
-    BeforeExecute[] value();
+public @interface BeforeSuperExecutes {
+    BeforeSuperExecute[] value();
 }

@@ -20,7 +20,7 @@ import android.util.Log;
 import android.view.View;
 
 import com.littersun.butcherknife.annotations.Aspect;
-import com.littersun.butcherknife.annotations.BeforeExecute;
+import com.littersun.butcherknife.annotations.BeforeSuperExecute;
 
 @Aspect
 public class ClickListenerInjector {
@@ -29,7 +29,7 @@ public class ClickListenerInjector {
     private ClickListenerInjector() {
     }
 
-    @BeforeExecute(clazz = View.OnClickListener.class, method = "onClick")
+    @BeforeSuperExecute(clazz = View.OnClickListener.class, method = "onClick")
     public static void beforeViewOnClick(View.OnClickListener listener, View view) {
         Log.e(TAG, "beforeViewOnClick: listener = " + listener + ", view = " + view);
     }
