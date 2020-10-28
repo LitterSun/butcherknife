@@ -1,0 +1,6 @@
+boolean isExcludeExample() {
+    return System.getenv("IS_EXCLUDE_EXAMPLE") == 'true'
+}
+ext {
+    isExcludeExample = this.&isExcludeExample
+}

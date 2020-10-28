@@ -57,7 +57,12 @@ public class InjectExecuteClassVisitor extends ClassVisitor {
     public void visit(int version, int access, String name, String signature, String superName, String[] interfaces) {
         super.visit(version, access, name, signature, superName, interfaces);
         mCurrentClass = name;
-        PointcutClass pointcutClass = mPointcutClassMap.get(superName);
+        PointcutClass pointcutClass = mPointcutClassMap.get(name);
+        if (pointcutClass != null) {
+            mPointcutClasses.add(pointcutClass);
+        }
+
+        pointcutClass = mPointcutClassMap.get(superName);
         if (pointcutClass != null) {
             mPointcutClasses.add(pointcutClass);
         }

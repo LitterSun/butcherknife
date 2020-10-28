@@ -1,5 +1,16 @@
 apply plugin: 'com.android.application'
-//apply plugin: 'com.littersun.butcherknife'
+apply plugin: 'com.littersun.butcherknife'
+
+buildscript {
+    repositories {
+        mavenLocal()
+        google()
+        jcenter()
+    }
+    dependencies {
+        classpath "com.littersun.butcherknife:butcherknife-gradle-plugin:${releaseConfiguration.releaseVersion}"
+    }
+}
 
 android {
     compileSdkVersion 29
@@ -25,6 +36,11 @@ android {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
     }
+}
+
+butcherknife {
+    logEnabled true
+//    excludePackages "com.littersun.butcherknife", "com.example"
 }
 
 dependencies {

@@ -1,0 +1,40 @@
+apply plugin: 'maven-publish'
+apply plugin: 'com.novoda.bintray-release'
+
+def getBintrayUserName() {
+    return System.getenv("BINTRAY_USER_NAME")
+}
+
+def getBintrayApiKey() {
+    return System.getenv("BINTRAY_API_KEY")
+}
+
+publish {
+    userOrg = BINTRAY_USER_ORG
+    bintrayUser = bintrayUserName
+    bintrayKey = bintrayApiKey
+    repoName = BINTARY_REPO_NAME
+    groupId = GROUP_ID
+    artifactId = ARTIFACT_ID
+    publishVersion = releaseConfiguration.releaseVersion
+    desc = BINTARY_DESC
+    dryRun = false
+    publications = ['official']
+}
+
+task sourcesJar(type: Jar, dependsOn: classes) {
+    classifier = 'sources'
+    from sourceSets.main.allSource
+}
+
+publishing {
+    publications {
+        official(MavenPublication) {
+            groupId GROUP_ID
+            artifactId ARTIFACT_ID
+            version releaseConfiguration.releaseVersion
+            from components.java
+            artifact sourcesJar
+        }
+    }
+}

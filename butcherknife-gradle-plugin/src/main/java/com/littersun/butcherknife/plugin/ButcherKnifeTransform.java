@@ -92,6 +92,17 @@ public class ButcherKnifeTransform extends Transform {
         mAndroidJars = androidJars;
     }
 
+    private void setUserExcludePackages(String[] packages) {
+        if (packages == null) {
+            mUserExcludePackages = new String[]{};
+        } else {
+            mUserExcludePackages = new String[packages.length];
+            for (int i = 0; i < packages.length; i++) {
+                mUserExcludePackages[i] = packages[i].replace('.', '/');
+            }
+        }
+    }
+
     @Override
     public void transform(TransformInvocation transformInvocation) throws IOException {
         if (mPluginExtension.isLogEnabled()) {
@@ -99,10 +110,7 @@ public class ButcherKnifeTransform extends Transform {
         } else {
             mLog = new ErrorLog();
         }
-        mUserExcludePackages = mPluginExtension.getExcludePackages();
-        if (mUserExcludePackages == null) {
-            mUserExcludePackages = new String[]{};
-        }
+        setUserExcludePackages(mPluginExtension.getExcludePackages());
 
         mLog.info("transform task start: " + "Transform = " + getClass().getSimpleName() + ", isIncremental = " + transformInvocation.isIncremental());
 

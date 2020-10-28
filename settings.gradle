@@ -1,3 +1,8 @@
+apply from: 'publicFun.gradle'
+
+if (!isExcludeExample()) {
+    include ':example'
+}
+
 include ':butcherknife-gradle-plugin'
 include ':butcherknife-annotations'
-include ':example'

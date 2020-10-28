@@ -1,19 +1,5 @@
 apply plugin: 'java-library'
-apply plugin: 'maven-publish'
-
-afterEvaluate {
-    publishing {
-        publications {
-            official(MavenPublication) {
-                groupId 'com.littersun.butcherknife'
-                artifactId 'annotations'
-                version '1.0.0'
-                from components.java
-            }
-        }
-    }
-}
-
+apply from: "${project.rootProject.file('mavenPush.gradle')}"
 
 java {
     sourceCompatibility = JavaVersion.VERSION_1_8

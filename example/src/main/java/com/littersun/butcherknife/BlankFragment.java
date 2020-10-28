@@ -17,6 +17,7 @@
 package com.littersun.butcherknife;
 
 import android.app.Fragment;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -69,15 +70,19 @@ public class BlankFragment extends Fragment {
         }
     }
 
-    @Override
-    public void onResume() {
-        super.onResume();
-    }
+//    @Override
+//    public void onResume() {
+//        super.onResume();
+//    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_blank, container, false);
+        View inflate = inflater.inflate(R.layout.fragment_blank, container, false);
+        inflate.findViewById(R.id.btn_to_lambda_activity).setOnClickListener(v -> {
+            getActivity().startActivity(new Intent(getActivity(), LambdaActivity.class));
+        });
+        return inflate;
     }
 }
