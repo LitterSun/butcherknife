@@ -6,7 +6,7 @@ butcherknife
 ## butcherknife简介
 一个基于ASM应用于Android开发平台的AOP框架，可作用于java源码，class文件及jar包，同时支持kotlin的应用。  
 通过注解的方式进行切点的代码织入
-* `@Aspect` 表明一个类是Aspect Class
+* `@Aspect` 表明一个类是Aspect Class，且class必须是public
 * `@BeforeCall` 方法调用前织入代码
 * `@AfterCall` 方法调用后织入代码
 * `@BeforeSuperExecute` 父类方法内部执行前织入代码，如果是子类没有重写父类方法的话，将强制实现该方法，且该方法只有只会在直接子类中只会织入一次，子类的子类不在织入，防止多次调用。
@@ -73,7 +73,7 @@ apply plugin: 'com.littersun.butcherknife'
 在需要的module中添加注解的依赖
 ```groovy
 dependencies {
-    implementation "com.littersun.butcherknife:annotations:1.0.0"
+    implementation "com.littersun.butcherknife:butcherknife-annotations:1.0.0"
 }
 ```
 
