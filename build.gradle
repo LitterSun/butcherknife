@@ -2,8 +2,8 @@
 buildscript {
     ext {
         releaseConfiguration = [
-                releaseVersion    : "1.0.0",
-                releaseVersionCode: 100,
+                releaseVersion    : "1.0.1",
+                releaseVersionCode: 10000,
         ]
     }
 

@@ -61,7 +61,7 @@ buildscript {
     }
     dependencies {
         classpath 'com.android.tools.build:gradle:x.x.x'
-        classpath "com.littersun.butcherknife:butcherknife-gradle-plugin:1.0.0"
+        classpath "com.littersun.butcherknife:butcherknife-gradle-plugin:1.0.1"
     }
 }
 ```
@@ -73,7 +73,7 @@ apply plugin: 'com.littersun.butcherknife'
 在需要的module中添加注解的依赖
 ```groovy
 dependencies {
-    implementation "com.littersun.butcherknife:butcherknife-annotations:1.0.0"
+    implementation "com.littersun.butcherknife:butcherknife-annotations:1.0.1"
 }
 ```
 
