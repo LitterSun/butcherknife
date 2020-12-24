@@ -71,14 +71,12 @@ public class AnnotationClassVisitor extends ClassVisitor {
     private class MethodAnnotationScanner extends MethodVisitor {
         private final String mInjectMethodName;
         private final String mInjectMethodDesc;
-        private final String mPointcutMethodDescStart;
         private AspectAnnotationVisitor mAnnotationVisitor;
 
         private MethodAnnotationScanner(String methodName, String methodDesc) {
             super(mContext.getASMVersion());
             mInjectMethodName = methodName;
             mInjectMethodDesc = methodDesc;
-            mPointcutMethodDescStart = getPointcutMethodDescStart(methodName, methodDesc);
         }
 
 
@@ -117,7 +115,7 @@ public class AnnotationClassVisitor extends ClassVisitor {
             if (mAnnotationVisitor != null) {
                 for (PointcutAnnotation pointcutAnnotation : mAnnotationVisitor.getPointcutAnnotations()) {
                     try {
-                        String pointcutMethodDesc = getPointcutMethodDesc(pointcutAnnotation.clazz, pointcutAnnotation.method, mPointcutMethodDescStart);
+                        String pointcutMethodDesc = getPointcutMethodDesc(pointcutAnnotation.clazz, pointcutAnnotation.method);
                         if (pointcutMethodDesc == null) {
                             throw new RuntimeException("pointcutClassName = " + pointcutAnnotation.clazz + ", pointcutMethodName = " + pointcutAnnotation.method + ", pointcutMethodDesc is NULL");
                         }
@@ -142,7 +140,6 @@ public class AnnotationClassVisitor extends ClassVisitor {
         }
 
         private String getPointcutMethodDescStart(String methodName, String methodDesc) {
-
             Method method = new Method(methodName, methodDesc);
             Type[] argumentTypes = method.getArgumentTypes();
             if (argumentTypes.length <= 1) {
@@ -156,12 +153,16 @@ public class AnnotationClassVisitor extends ClassVisitor {
             return descriptor.substring(0, descriptor.length() - 1);
         }
 
-        private String getPointcutMethodDesc(String pointcutClass, String pointcutMethodName, String pointcutMethodDescStart) throws ClassNotFoundException {
+
+        private String getPointcutMethodDesc(String pointcutClass, String pointcutMethodName) throws ClassNotFoundException {
             Class<?> aClass = mContext.getClassLoader().loadClass(Type.getType(pointcutClass).getClassName());
             while (aClass != Object.class) {
+                String objectPointcutMethodDescStart = getPointcutMethodDescStart(mInjectMethodName, mInjectMethodDesc);
+                String staticPointcutMethodDescStart = mInjectMethodDesc.substring(0, mInjectMethodDesc.length() - 1);
                 for (java.lang.reflect.Method declaredMethod : aClass.getDeclaredMethods()) {
                     Method method = Method.getMethod(declaredMethod);
-                    if (method.getName().equals(pointcutMethodName) && method.getDescriptor().startsWith(pointcutMethodDescStart)) {
+                    if (method.getName().equals(pointcutMethodName) &&
+                            (method.getDescriptor().startsWith(objectPointcutMethodDescStart) || method.getDescriptor().startsWith(staticPointcutMethodDescStart))) {
                         return method.getDescriptor();
                     }
                 }

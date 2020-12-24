@@ -1,0 +1,28 @@
+name: CI
+
+on:
+  push:
+
+  pull_request:
+    branches: [ master ]
+
+jobs:
+  build:
+    runs-on: macos-latest
+
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Before script
+        run: |
+          chmod +x gradlew
+          chmod +x checkstyle/checkstyle.sh
+          chmod +x publishAllToMavenLocal.sh
+
+      - name: Run Gradle command
+        run: |
+          bash ./publishAllToMavenLocal.sh
+          bash ./checkstyle/checkstyle.sh
+          ./gradlew test
+          ./gradlew assemble
+

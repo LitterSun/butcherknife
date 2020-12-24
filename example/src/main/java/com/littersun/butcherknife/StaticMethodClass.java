@@ -16,17 +16,15 @@
 
 package com.littersun.butcherknife;
 
-import android.os.Bundle;
+public class StaticMethodClass {
+    private StaticMethodClass() {
+    }
 
-import androidx.appcompat.app.AppCompatActivity;
+    public static void unnamedMethod(long l, String s, int i) {
+        privateStaticMethod(l, s, i);
+    }
 
-public class MainActivity extends AppCompatActivity {
+    private static void privateStaticMethod(long l, String s, int i) {
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
-        getFragmentManager().beginTransaction().replace(R.id.fragment, new BlankFragment()).commit();
-        StaticMethodClass.unnamedMethod(100L, "xxx", 99);
     }
 }
