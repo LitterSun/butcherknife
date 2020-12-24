@@ -48,7 +48,7 @@ public class ClickListenerInjector {
 }
 ```
 
-织入类必须是`public`，方法必须是 `public static`,第一个参数是切点的this对象，后面的参数分别的切点方法的参数，且除this参数外后面的参数类型是严格匹配，必须和切点方法保持一致。
+织入类必须是`public`，方法必须是 `public static`,第一个参数是切点的this对象（**如果是静态方法，该参数省略**），后面的参数分别的切点方法的参数，且除this参数外后面的参数类型是严格匹配，必须和切点方法保持一致。
 
 ## 集成步骤
 在project根目录的build.gradle添加插件
